@@ -12,6 +12,7 @@ export const RouletteContainer = styled.div`
   flex-shrink: 0;
   z-index: 5;
   pointer-events: none;
+  transform: rotate(-47deg);
 `;
 
 export const RotationContainer = styled.div`

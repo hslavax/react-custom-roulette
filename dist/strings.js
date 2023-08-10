@@ -1,4 +1,6 @@
 export var DEFAULT_BACKGROUND_COLORS = ['darkgrey', 'lightgrey'];
+export var DEFAULT_CANVAS_WIDTH = 500;
+export var DEFAULT_CANVAS_HEIGHT = 500;
 export var DEFAULT_TEXT_COLORS = ['black'];
 export var DEFAULT_OUTER_BORDER_COLOR = 'black';
 export var DEFAULT_OUTER_BORDER_WIDTH = 5;

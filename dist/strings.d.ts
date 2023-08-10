@@ -1,4 +1,6 @@
 export const DEFAULT_BACKGROUND_COLORS: string[];
+export const DEFAULT_CANVAS_WIDTH: 500;
+export const DEFAULT_CANVAS_HEIGHT: 500;
 export const DEFAULT_TEXT_COLORS: string[];
 export const DEFAULT_OUTER_BORDER_COLOR: "black";
 export const DEFAULT_OUTER_BORDER_WIDTH: 5;

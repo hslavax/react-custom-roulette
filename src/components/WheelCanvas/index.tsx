@@ -28,6 +28,30 @@ interface DrawWheelProps {
   textDistance: number;
 }
 
+const getLines = (
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  maxWidth: number
+) => {
+  const words = text.split(' ');
+  const lines = [];
+  let currentLine = words[0];
+
+  for (let i = 1; i < words.length; i++) {
+    const word = words[i];
+    const targetline = `${currentLine} ${word}`;
+    const { width } = ctx.measureText(targetline);
+    if (width < maxWidth) {
+      currentLine += ` ${word}`;
+    } else {
+      lines.push(currentLine);
+      currentLine = word;
+    }
+  }
+  lines.push(currentLine);
+  return lines;
+};
+
 const drawRadialBorder = (
   ctx: CanvasRenderingContext2D,
   centerX: number,
@@ -105,7 +129,26 @@ const drawWheel = (
         (2 * Math.PI) / QUANTITY;
       const endAngle = startAngle + arc;
 
-      ctx.fillStyle = (style && style.backgroundColor) as string;
+      // check if background color is gradient type or not
+      const isGradient =
+        style && style?.backgroundColor?.startsWith('linear-gradient');
+      if (isGradient) {
+        const gradient = ctx.createLinearGradient(
+          centerX + Math.cos(startAngle) * outsideRadius,
+          centerY + Math.sin(startAngle) * outsideRadius,
+          centerX + Math.cos(endAngle) * outsideRadius,
+          centerY + Math.sin(endAngle) * outsideRadius
+        );
+        const colorStops = style?.backgroundColor?.match(/#[0-9a-fA-F]{6}/g);
+        if (colorStops && colorStops.length > 1) {
+          colorStops.forEach((color, index) => {
+            gradient.addColorStop(index / (colorStops.length - 1), color);
+          });
+          ctx.fillStyle = gradient;
+        }
+      } else {
+        ctx.fillStyle = (style && style.backgroundColor) as string;
+      }
 
       ctx.beginPath();
       ctx.arc(centerX, centerY, outsideRadius, startAngle, endAngle, false);
@@ -197,17 +240,25 @@ const drawWheel = (
         ctx.rotate(contentRotationAngle);
 
         const text = data[i].option;
-        ctx.font = `${style?.fontStyle || fontStyle} ${
-          style?.fontWeight || fontWeight
-        } ${(style?.fontSize || fontSize) * 2}px ${
-          style?.fontFamily || fontFamily
-        }, Helvetica, Arial`;
-        ctx.fillStyle = (style && style.textColor) as string;
-        ctx.fillText(
-          text || '',
-          -ctx.measureText(text || '').width / 2,
-          fontSize / 2.7
-        );
+        const lines = text ? getLines(ctx, text, clampedContentDistance) : null;
+        if (lines) {
+          const lineHeight = 16;
+          const totalHeight = lines.length * lineHeight;
+          for (let j = 0; j < lines.length; j++) {
+            const line = lines[j];
+            ctx.font = `${style?.fontStyle || fontStyle} ${
+              style?.fontWeight || fontWeight
+            } ${(style?.fontSize || fontSize) * 2}px ${
+              style?.fontFamily || fontFamily
+            }, Helvetica, Arial `;
+            ctx.fillStyle = (style && style.textColor) as string;
+            ctx.fillText(
+              line || '',
+              -ctx.measureText(line || '').width / 2,
+              (i - lines.length / 2) * lineHeight + totalHeight / 2
+            );
+          }
+        }
       }
 
       ctx.restore();

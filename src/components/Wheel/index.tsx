@@ -15,6 +15,8 @@ import {
 } from './styles';
 import {
   DEFAULT_BACKGROUND_COLORS,
+  DEFAULT_CANVAS_HEIGHT,
+  DEFAULT_CANVAS_WIDTH,
   DEFAULT_FONT_FAMILY,
   DEFAULT_FONT_SIZE,
   DEFAULT_FONT_STYLE,
@@ -42,6 +44,8 @@ interface Props {
   onStopSpinning?: () => any;
   backgroundColors?: string[];
   textColors?: string[];
+  canvasWidth?: number;
+  canvasHeight?: number;
   outerBorderColor?: string;
   outerBorderWidth?: number;
   innerRadius?: number;
@@ -74,8 +78,11 @@ export const Wheel = ({
   onStopSpinning = () => null,
   backgroundColors = DEFAULT_BACKGROUND_COLORS,
   textColors = DEFAULT_TEXT_COLORS,
+
   outerBorderColor = DEFAULT_OUTER_BORDER_COLOR,
   outerBorderWidth = DEFAULT_OUTER_BORDER_WIDTH,
+  canvasHeight = DEFAULT_CANVAS_HEIGHT,
+  canvasWidth = DEFAULT_CANVAS_WIDTH,
   innerRadius = DEFAULT_INNER_RADIUS,
   innerBorderColor = DEFAULT_INNER_BORDER_COLOR,
   innerBorderWidth = DEFAULT_INNER_BORDER_WIDTH,
@@ -282,8 +289,8 @@ export const Wheel = ({
         disableInitialAnimation={disableInitialAnimation}
       >
         <WheelCanvas
-          width="900"
-          height="900"
+          width={canvasWidth.toString()}
+          height={canvasHeight.toString()}
           data={wheelData}
           outerBorderColor={outerBorderColor}
           outerBorderWidth={outerBorderWidth}
