@@ -255,7 +255,7 @@ const drawWheel = (
             ctx.fillText(
               line || '',
               -ctx.measureText(line || '').width / 2,
-              (i - lines.length / 2) * lineHeight + totalHeight / 2
+              (j - lines.length / 2) * lineHeight + totalHeight / 2
             );
           }
         }

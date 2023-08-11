@@ -124,7 +124,7 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
                         var line = lines[j];
                         ctx.font = "".concat((style === null || style === void 0 ? void 0 : style.fontStyle) || fontStyle, " ").concat((style === null || style === void 0 ? void 0 : style.fontWeight) || fontWeight, " ").concat(((style === null || style === void 0 ? void 0 : style.fontSize) || fontSize) * 2, "px ").concat((style === null || style === void 0 ? void 0 : style.fontFamily) || fontFamily, ", Helvetica, Arial ");
                         ctx.fillStyle = (style && style.textColor);
-                        ctx.fillText(line || '', -ctx.measureText(line || '').width / 2, (i - lines.length / 2) * lineHeight + totalHeight / 2);
+                        ctx.fillText(line || '', -ctx.measureText(line || '').width / 2, (j - lines.length / 2) * lineHeight + totalHeight / 2);
                     }
                 }
             }
