@@ -175,7 +175,7 @@ export var Wheel = function (_a) {
     if (!isDataUpdated) {
         return null;
     }
-    return (React.createElement(RouletteContainer, { style: !isFontLoaded ||
+    return (React.createElement(RouletteContainer, { canvasHeight: canvasHeight.toString(), canvasWidth: canvasWidth.toString(), style: !isFontLoaded ||
             (totalImages > 0 && loadedImagesCounter !== totalImages)
             ? { visibility: 'hidden' }
             : {} },

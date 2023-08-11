@@ -4,13 +4,12 @@ import { NonDraggableImage } from '../common/styledComponents';
 
 export const RouletteContainer = styled.div`
   position: relative;
-  width: 80vw;
+  width: ${props =>   props.canvasWidth ? `${props.canvasWidth}px` : '80vw'} ;
   max-width: 445px;
-  height: 80vw;
+  height: ${props => props.canvasHeight ?  `${props.canvasHeight}px` : '80vw'} ;
   max-height: 445px;
   object-fit: contain;
   flex-shrink: 0;
-  z-index: 5;
   pointer-events: none;
   transform: rotate(-47deg);
 `;

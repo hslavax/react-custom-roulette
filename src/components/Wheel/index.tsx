@@ -271,6 +271,8 @@ export const Wheel = ({
 
   return (
     <RouletteContainer
+      canvasHeight={canvasHeight.toString()}
+      canvasWidth={canvasWidth.toString()}
       style={
         !isFontLoaded ||
         (totalImages > 0 && loadedImagesCounter !== totalImages)
